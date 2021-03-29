@@ -6,7 +6,7 @@ class Config:
 
     def __init__(self):
         self.config = configparser.ConfigParser()
-        self.config.read(os.path.abspath('C:\\Users\\Артур\\Desktop\\regres\\config.ini'))
+        self.config.read("../config.ini")
 
     def get_user(self):
         return self.config.get("Users", "user")
