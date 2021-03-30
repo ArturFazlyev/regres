@@ -1,12 +1,11 @@
 import jsonpickle
 
 from dto.user import User
-from manager.config import Config
+from manager.config import *
 from service.user_request import user_request
 from service.user_response import *
 
 
 def test_create_user():
-    config = Config()
-    response = user_request(jsonpickle.encode(User(name=config.get_user(), job=config.get_job())))
+    response = user_request(jsonpickle.encode(User(name=USER, job=JOB)))
     user_create_response(response)

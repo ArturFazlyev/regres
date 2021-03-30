@@ -1,21 +1,8 @@
 import configparser
 import os
-
-
-class Config:
-
-    def __init__(self):
-        self.config = configparser.ConfigParser()
-        self.config.read("../config.ini")
-
-    def get_user(self):
-        return self.config.get("Users", "user")
-
-    def get_job(self):
-        return self.config.get("Users", "job")
-
-    def get_url(self):
-        return self.config.get("Users", "url")
-
-    def get_create_user(self):
-        return self.config.get("Users", "create_user")
+config = configparser.ConfigParser()
+config.read(os.path.abspath("../setting/config.ini"))
+URL = config.get("Users", "url")
+USER = config.get("Users", "user")
+JOB = config.get("Users", "job")
+CREATE_USER = config.get("Users", "create_user")
