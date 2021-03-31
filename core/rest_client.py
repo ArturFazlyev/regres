@@ -22,13 +22,13 @@ class RestClient():
     def get(self, url, **kwargs):
         return self.request(url, "GET", **kwargs)
 
-    def post(self, url, data, **kwargs):
+    def post(self, url, data=None, **kwargs):
         return self.request(url, "POST", data, **kwargs)
 
-    def put(self, url, data, **kwargs):
+    def put(self, url, data=None, **kwargs):
         return self.request(url, "PUT", data, **kwargs)
 
-    def put(self, url, data, **kwargs):
+    def put(self, url, data=None, **kwargs):
         return self.request(url, "PATCH", data, **kwargs)
 
     def get(self, url, **kwargs):
