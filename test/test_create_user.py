@@ -25,4 +25,4 @@ def update_user():
 
 def get_user():
     response = create.get_single_user()
-    assert response.status_code == HTTPStatus.OK
+    assert response.status_code == HTTPStatus.CREATED

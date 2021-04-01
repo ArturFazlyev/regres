@@ -2,34 +2,17 @@ import requests
 
 
 class RestClient():
-    def __init__(self, api_root_url):
-        self.api_root_url = api_root_url
-        self.session = requests.session()
+    def __init__(self, base_address):
+        self.base_address = base_address
 
-    def request(self, url, method, data=None, **kwargs):
-        url = self.api_root_url + url
-        if method == "GET":
-            return self.session.get(url, **kwargs)
-        if method == "POST":
-            return requests.post(url, data, **kwargs)
-        if method == "PUT":
-            return self.session.put(url, data, **kwargs)
-        if method == "DELETE":
-            return self.session.delete(url, **kwargs)
-        if method == "PATCH":
-            return self.session.patch(url, data, **kwargs)
+    def post(self, path="/", params=None, data=None, json=None, headers=None):
+        url = f"{self.base_address}{path}"
+        return requests.post(url=url, params=params, data=data, json=json, headers=headers)
 
-    def get(self, url):
-        return self.request(url, "GET")
+    def get(self, path="/", params=None, headers=None):
+        url = f"{self.base_address}{path}"
+        return requests.get(url=url, params=params, headers=headers)
 
-    def post(self, url, data=None, **kwargs):
-        return self.request(url, "POST", data, **kwargs)
-
-    def put(self, url, data=None, **kwargs):
-        return self.request(url, "PUT", data, **kwargs)
-
-    def put(self, url, data=None, **kwargs):
-        return self.request(url, "PATCH", data, **kwargs)
-
-    def get(self, url, **kwargs):
-        return self.request(url, "DELETE", **kwargs)
+    def put(self, path="/", params=None, data=None, json=None, headers=None):
+        url = f"{self.base_address}{path}"
+        return requests.put(url=url, params=params, data=data, json=json, headers=headers)

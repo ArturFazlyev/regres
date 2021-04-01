@@ -9,11 +9,11 @@ class CreateUser(RestClient):
     def __init__(self, api_root_url, **kwargs):
         super(CreateUser, self).__init__(api_root_url, **kwargs)
 
-    def create_user_request(self, data, **kwargs):
-        return self.post(create_user, data=data, **kwargs)
+    def create_user_request(self, data):
+        return self.post(create_user, data=data)
 
     def get_single_user(self):
         return self.get(get_single_user)
 
-    def update_user(self, data, **kwargs):
-        return self.put(get_single_user, data, **kwargs )
+    def update_user(self, data):
+        return self.put(get_single_user, data)
