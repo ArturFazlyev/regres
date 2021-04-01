@@ -16,13 +16,13 @@ def test_create_user():
     assert isinstance(response.json()["id"], str)
 
 
-def update_user():
+def test_update_user():
     data = jsonpickle.encode(User(name="morp", job="QA Automation"))
     response = create.update_user(data=data)
     assert response.status_code == HTTPStatus.OK
     assert isinstance(response.json()["updatedAt"], str)
 
 
-def get_user():
+def test_get_user():
     response = create.get_single_user()
-    assert response.status_code == HTTPStatus.CREATED
+    assert response.status_code == HTTPStatus.OK
