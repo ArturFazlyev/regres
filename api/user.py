@@ -14,3 +14,6 @@ class CreateUser(RestClient):
 
     def get_single_user(self):
         return self.get(get_single_user)
+
+    def update_user(self, data, **kwargs):
+        return self.put(get_single_user, data, **kwargs )
