@@ -19,8 +19,8 @@ class RestClient():
         if method == "PATCH":
             return self.session.patch(url, data, **kwargs)
 
-    def get(self, url, **kwargs):
-        return self.request(url, "GET", **kwargs)
+    def get(self, url):
+        return self.request(url, "GET")
 
     def post(self, url, data=None, **kwargs):
         return self.request(url, "POST", data, **kwargs)
