@@ -25,7 +25,7 @@ history_job:
   image: storytel/alpine-bash-curl
   script:
    # - 'curl --location --output artifacts.zip "https://gitlab.com/api/v4/projects/26325236/jobs/artifacts/master/download?job=pages&job_token=$CI_JOB_TOKEN"' public
-    - 'curl --location --header "PRIVATE-TOKEN: DgH7ycMYzSxHZua5MWux" --output artifacts.zip "https://gitlab.com/api/v4/projects/26325236/jobs/artifacts/master/download?job=pages"' #private repository
+    - 'curl --location --header "PRIVATE-TOKEN: xxxxxxx" --output artifacts.zip "https://gitlab.com/api/v4/projects/26325236/jobs/artifacts/master/download?job=pages"' #private repository
     - apk add unzip
     - unzip artifacts.zip
     - cp -r ./public/history ./allure-results
