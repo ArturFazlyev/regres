@@ -1,0 +1,62 @@
+stages:
+  - testing
+  - history_copy 
+  - reports 
+  - deploy 
+
+Testing:
+  stage: testing
+  image: centos:7
+  before_script:
+    - yum install gcc openssl-devel bzip2-devel libffi-devel -y && curl -O https://www.python.org/ftp/python/3.8.1/Python-3.8.1.tgz
+    - tar -xzf Python-3.8.1.tgz && cd Python-3.8.1/ && ./configure --enable-optimizations && yum install -y python3-pip && pip3 install --upgrade pip && cd ..
+    - pip3 install -r requirements.txt
+  script:
+    - pytest -n2 --alluredir=./allure-results test/
+  allow_failure: true
+  artifacts:
+    when: always
+    paths:
+      - ./allure-results
+    expire_in: 1 day
+
+history_job:
+  stage: history_copy
+  image: storytel/alpine-bash-curl
+  script:
+   # - 'curl --location --output artifacts.zip "https://gitlab.com/api/v4/projects/26325236/jobs/artifacts/master/download?job=pages&job_token=$CI_JOB_TOKEN"' public
+    - 'curl --location --header "PRIVATE-TOKEN: DgH7ycMYzSxHZua5MWux" --output artifacts.zip "https://gitlab.com/api/v4/projects/26325236/jobs/artifacts/master/download?job=pages"' #private repository
+    - apk add unzip
+    - unzip artifacts.zip
+    - cp -r ./public/history ./allure-results
+  allow_failure: true
+  artifacts: 
+    paths:
+      - ./allure-results
+    expire_in: 1 day
+  rules:
+    - when: always
+
+allure_job:
+  stage: reports
+  image: frankescobar/allure-docker-service
+  script:
+     - allure generate -c ./allure-results -o ./allure-report
+  artifacts:
+    paths:
+      - ./allure-results
+      - ./allure-report
+    expire_in: 1 day
+  rules:
+    - when: always
+
+pages:
+  stage: deploy
+  script:
+    - mkdir public
+    - mv ./allure-report/* public
+  artifacts:
+    paths:
+      - public
+  rules:
+    - when: always
